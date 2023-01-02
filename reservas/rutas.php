@@ -12,6 +12,16 @@
     Routes::Add("/bajaUser","post","UsuariosControlador::Eliminar");
     Routes::Add("/modificarUser","post","UsuariosControlador::Modificar");
     Routes::Add("/listarUser","get","UsuariosControlador::Listar");
+
+    Routes::Add("/altaSalon","post","SalonesControlador::Alta");
+    Routes::Add("/bajaSalon","post","SalonesControlador::Eliminar");
+    Routes::Add("/modificarSalon","post","SalonesControlador::Modificar");
+    Routes::Add("/listarSalon","get","SalonesControlador::Listar");
+
+    Routes::Add("/altaElemento","post","ElementosControlador::Alta");
+    Routes::Add("/bajaElemento","post","ElementosControlador::Eliminar");
+    Routes::Add("/modificarElemento","post","ElementosControlador::Modificar");
+    Routes::Add("/listarElemento","get","ElementosControlador::Listar");
     
     
 

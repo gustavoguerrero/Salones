@@ -51,7 +51,6 @@ services:
   backoffice:
     build:
       context: ./
-      dockerfile: Dockerfile
     tty: true
     restart: unless-stopped
     ports:
