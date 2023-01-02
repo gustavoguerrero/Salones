@@ -52,11 +52,11 @@
         }
 
         public function ObtenerTodos(){
-            $sql = "select * from Elementod";
+            $sql = "select * from Elementos";
             $filas = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC);
             $resultado = array();
             foreach($filas as $fila){
-                $p = new SalonesModelo();
+                $p = new ElementosModelo();
                 $p -> nombreElemento  = $fila['nombreElemento'];
                 $p -> nombreSalon = $fila['nombreSalon'];
 

@@ -32,6 +32,7 @@ CREATE TABLE Elementos(
 );
 
 CREATE TABLE Reservas(
+    idReserva smallint unsigned unique NOT NULL AUTO_INCREMENT,
     idAdmin SMALLINT UNSIGNED NOT NULL,
     nombreSalon VARCHAR(50) NOT NULL ,
     idUsuario SMALLINT UNSIGNED NOT NULL,
@@ -39,7 +40,7 @@ CREATE TABLE Reservas(
     horaFechaEntrada DATETIME,
     horaFechaSalida DATETIME,
     horaFechaModificacion DATETIME,
-    PRIMARY KEY (idAdmin, nombreSalon),
+    PRIMARY KEY (idReserva),
     FOREIGN KEY (idAdmin) REFERENCES Administradores(idAdmin),
     FOREIGN KEY (nombreSalon) REFERENCES Salones(nombreSalon),
     FOREIGN KEY (IdUsuario) REFERENCES Usuarios(idUsuario)
