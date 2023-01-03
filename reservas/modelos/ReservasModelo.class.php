@@ -5,14 +5,14 @@
     class ReservasModelo extends Modelo{
         public $idReserva;
         public $idAdmin;
-        public $NombreAdmin;
-        public $idReserva;
         public $idUsuario;
         public $horaFechaReserva;
         public $horaFechaEntrada;
         public $horaFechaSalida;
         public $horaFechaModificacion;
-
+        
+        public $NombreAdmin;
+        public $nombreSalon;
         public $nombres;
         public $apellidos;
         

@@ -2,7 +2,7 @@
     Header("Access-Control-Allow-Origin: *");
     require_once "../utils/autoload.php";
 
-    class SalonesControlador{
+    class ElementosControlador{
         public static function Alta($context){
             
             $u = new ElementosModelo();
