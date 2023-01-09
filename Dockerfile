@@ -1,5 +1,4 @@
 FROM php:7.4-apache 
-RUN apt-get update -y && apt-get install -y libcurl4-openssl-dev curl && apt-get clean -y
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
