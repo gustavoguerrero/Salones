@@ -3,7 +3,6 @@ import { API_LOGIN_URL } from "./config.js";
 const formLogin = document.querySelector('#formLogin');
 
 
-
 formLogin.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -17,17 +16,18 @@ formLogin.addEventListener('submit', (e) => {
     })
     .then(resp => resp.text())
     .then(data => {const val = JSON.parse(data);
-    if (val.Resultado === true){
-        console.log(val.Resultado);
-        //sessionStorage.getItem('usuario');
-        //document.querySelector('.mensaje').innerHTML = val.Mensaje;
-        window.location.replace("inicio.html");
+    
+    /////    arreglar el if que no funciona
+    if (val.Resultado == true){
         
+        localStorage.getItem('usuario');
+        
+        window.location.replace("inicio.html");
 
     } else{
-        
-        //alert(val.Mensaje);
-        document.querySelector('.mensaje').innerHTML = val.Mensaje
+        console.log()
+        alert(val.Mensaje);
+        //document.querySelector('.mensaje').innerHTML = val.Mensaje
     }
     
     })
