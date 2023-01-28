@@ -16,18 +16,16 @@ formLogin.addEventListener('submit', (e) => {
     })
     .then(resp => resp.text())
     .then(data => {const val = JSON.parse(data);
-    
-    /////    arreglar el if que no funciona
-    if (val.Resultado == true){
-        
+
+    if (val.Resultado === "true"){
+
         localStorage.getItem('usuario');
-        
         window.location.replace("inicio.html");
 
     } else{
-        console.log()
-        alert(val.Mensaje);
-        //document.querySelector('.mensaje').innerHTML = val.Mensaje
+
+        document.querySelector('.mensaje').innerHTML = val.Mensaje        
+        
     }
     
     })
