@@ -2,63 +2,72 @@
 
     require_once "../utils/autoload.php";
 
-    class ElementosModelo extends Modelo{
-        public $nombreElemento;
-        public $nombreSalon;
+    class InventarioModelo extends Modelo{
+        public $id;
+        public $salon_id;
+        public $item;
+        public $cantidad;
         
-        public function __construct($nombreElemento=""){
+        public function __construct($id=""){
             parent::__construct();
-            if($nombreElemento != ""){
-                $this -> nombreElemento = $nombreElemento;
+            if($id != ""){
+                $this -> id = $id;
                 $this -> Obtener();
             }
         }
 
         public function Guardar(){
-            if($this -> nombreElemento == NULL) $this -> insertar();
+            if($this -> id == NULL) $this -> insertar();
             else $this -> actualizar();
         }
 
         private function insertar(){
-            $sql = "INSERT INTO Elementos (nombreElemento, nombreSalon) 
-            VALUES ('" . $this -> nombreElemento . "',
-                    '" . $this -> nombreSalon . "');"; 
+            $sql = "INSERT INTO Inventario (salon_id, item, cantidad) 
+            VALUES ('" . $this -> salon_id . "',
+                    '" . $this -> item . "',
+                    '" . $this -> cantidad . "',);"; 
             
             $this -> conexion -> query($sql);
         }
 
         private function actualizar(){
-            $sql = "UPDATE Elementos SET
-            nombreSalon = '" . $this -> nombreSalon . "'
-            WHERE nombreElemento = " . $this -> nombreElemento . ";";
+            $sql = "UPDATE Inventario SET
+            salon_id = '" . $this -> salon_id . "',
+            item = '" . $this -> item . "',
+            cantidad = '" . $this -> cantidad . "',
+            WHERE id = " . $this -> id . ";";
             $this -> conexion -> query($sql);   
         }
 
         public function Obtener(){
-            $sql = "SELECT * FROM Elementos WHERE
-                nombreElemento = " . $this -> nombreElemento . ";";
+            $sql = "SELECT * FROM Inventario WHERE
+                id = " . $this -> id . ";";
 
             $fila = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC)[0];
 
-            $this -> nombreElemento = $fila['nombreElemento'];
-            $this -> nombreSalon = $fila['nombreSalon'];
+            $this -> id = $fila['id'];
+            $this -> salon_id = $fila['salon_id'];
+            $this -> item = $fila['item'];
+            $this -> cantidad = $fila['cantidad'];
         }
 
 
         public function Eliminar(){
-            $sql = "DELETE FROM Elementos 
-                WHERE nombreElemento = " . $this -> nombreElemento . ";";
+            $sql = "DELETE FROM Inventario 
+                WHERE id = " . $this -> id . ";";
             $this -> conexion -> query($sql);
         }
 
         public function ObtenerTodos(){
-            $sql = "select * from Elementos";
+            $sql = "select * from Inventario";
             $filas = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC);
             $resultado = array();
             foreach($filas as $fila){
-                $p = new ElementosModelo();
-                $p -> nombreElemento  = $fila['nombreElemento'];
-                $p -> nombreSalon = $fila['nombreSalon'];
+                $p = new InventarioModelo();
+                $p -> id = $fila['id'];
+                $p -> salon_id = $fila['salon_id'];
+                $p -> item = $fila['item'];
+                $p -> cantidad = $fila['cantidad'];
 
                 array_push($resultado,$p);
             }

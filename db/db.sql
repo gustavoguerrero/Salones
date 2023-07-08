@@ -1,47 +1,54 @@
-USE base;
-
-CREATE TABLE Usuarios(
-    idUsuario SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nombres VARCHAR(50) NOT NULL,
-    apellidos VARCHAR(50) NOT NULL, 
-    email VARCHAR(255) NOT NULL UNIQUE,
-    PRIMARY KEY (idUsuario)
+CREATE TABLE Usuarios (
+  id VARCHAR(100) PRIMARY KEY NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Administradores(
-    idAdmin SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nombreAdmin VARCHAR(50) NOT NULL, 
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (idAdmin)
+CREATE TABLE Administradores (
+  id VARCHAR(100) PRIMARY KEY NOT NULL,
+  nombre VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Salones(
-    nombreSalon VARCHAR(50) NOT NULL ,
-    capacidad SMALLINT UNSIGNED NOT NULL, 
-    tipo ENUM("Actos", "Seminarios", 
-    "Hibridos", "Comunes", "Informatica"),
-    PRIMARY KEY (nombreSalon)
+CREATE TABLE Tipos_Salones (
+  id VARCHAR(100) PRIMARY KEY NOT NULL,
+  nombre VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Elementos(
-    nombreElemento VARCHAR(50) NOT NULL ,
-    nombreSalon VARCHAR(50) NOT NULL ,
-    PRIMARY KEY (nombreSalon, nombreElemento),
-    FOREIGN KEY (nombreSalon) REFERENCES Salones(nombreSalon)
+CREATE TABLE Salones (
+  id VARCHAR(100) PRIMARY KEY NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  capacidad INT NOT NULL,
+  ubicacion VARCHAR(255),
+  tipo_salon_id VARCHAR(100),
+  FOREIGN KEY (tipo_salon_id) REFERENCES Tipos_Salones(id)
 );
 
-CREATE TABLE Reservas(
-    idReserva smallint unsigned unique NOT NULL AUTO_INCREMENT,
-    idAdmin SMALLINT UNSIGNED NOT NULL,
-    nombreSalon VARCHAR(50) NOT NULL ,
-    idUsuario SMALLINT UNSIGNED NOT NULL,
-    horaFechaReserva DATETIME,
-    horaFechaEntrada DATETIME,
-    horaFechaSalida DATETIME,
-    horaFechaModificacion DATETIME,
-    PRIMARY KEY (idReserva),
-    FOREIGN KEY (idAdmin) REFERENCES Administradores(idAdmin),
-    FOREIGN KEY (nombreSalon) REFERENCES Salones(nombreSalon),
-    FOREIGN KEY (IdUsuario) REFERENCES Usuarios(idUsuario)
-); 
+CREATE TABLE Inventario (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  salon_id VARCHAR(100) NOT NULL,
+  item VARCHAR(255) NOT NULL,
+  cantidad INT NOT NULL,
+  FOREIGN KEY (salon_id) REFERENCES Salones(id)
+);
+
+CREATE TABLE Materias (
+  id VARCHAR(100) PRIMARY KEY NOT NULL,
+  nombre VARCHAR(255) NOT NULL,
+  profesor_id VARCHAR(100),
+  FOREIGN KEY (profesor_id) REFERENCES Usuarios(id)
+);
+
+CREATE TABLE Eventos_Calendario (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  titulo VARCHAR(255) NOT NULL,
+  inicio DATETIME NOT NULL,
+  fin DATETIME NOT NULL,
+  salon_id VARCHAR(100),
+  profesor_id VARCHAR(100),
+  administrador_id VARCHAR(100),
+  FOREIGN KEY (salon_id) REFERENCES Salones(id),
+  FOREIGN KEY (profesor_id) REFERENCES Usuarios(id),
+  FOREIGN KEY (administrador_id) REFERENCES Administradores(id)
+);
