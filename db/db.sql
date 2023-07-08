@@ -33,12 +33,12 @@ CREATE TABLE Inventario (
   FOREIGN KEY (salon_id) REFERENCES Salones(id)
 );
 
-CREATE TABLE Materias (
+"CREATE TABLE Materias (
   id VARCHAR(100) PRIMARY KEY NOT NULL,
   nombre VARCHAR(255) NOT NULL,
   profesor_id VARCHAR(100),
   FOREIGN KEY (profesor_id) REFERENCES Usuarios(id)
-);
+);"
 
 CREATE TABLE Eventos_Calendario (
   id INT PRIMARY KEY AUTO_INCREMENT,

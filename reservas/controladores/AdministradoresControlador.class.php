@@ -6,7 +6,7 @@
         public static function Alta($context){
             
             $u = new AdministradoresModelo();
-            $u -> nombreAdmin = $context['post']['nombreAdmin'];
+            $u -> nombre = $context['post']['nombre'];
             $u -> email = $context['post']['email'];
             $u -> password = $context['post']['password'];
             
@@ -31,22 +31,34 @@
         }
         
         public static function Eliminar($context){
-            $u = new AdministradoresModelo($context["post"]["idAdmin"]);
-            $u -> Eliminar();
-            $respuesta = [
+            $u = new AdministradoresModelo($context["post"]["id"]);
+            try{
+                $u -> Eliminar();
+                $respuesta = [
                 "Resultado" => "true",
                 "Mensaje" => "Administrador eliminado Correctamente"
-            ];
-            echo json_encode($respuesta);
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
+            catch(mysqli_sql_exception $e){
+                $error = $e->getMessage();
+                $respuesta = [
+                    "Resultado" => "false",
+                    "Mensaje" => $error
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
         }        
 
         public static function Modificar($context){
-            $u = new AdministradoresModelo($context["post"]["idAdmin"]);
-            $u -> idAdmin = $context['post']['idAdmin'];
-            $u -> nombreAdmin = $context['post']['nombreAdmin'];
+            $u = new AdministradoresModelo($context["post"]["id"]);
+            $u -> id = $context['post']['id'];
+            $u -> nombre = $context['post']['nombre'];
             $u -> email = $context['post']['email'];
             $u -> password = $context['post']['password'];
-            if(!empty($context["post"]["idAdmin"])){
+            if(!empty($context["post"]["id"])){
                 $u -> Guardar();
                 $respuesta = [
                     "Resultado" => "true",
