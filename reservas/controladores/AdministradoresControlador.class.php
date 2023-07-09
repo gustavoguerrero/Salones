@@ -1,4 +1,5 @@
 <?php
+
     Header("Access-Control-Allow-Origin: *");
     require_once "../utils/autoload.php";
 
@@ -9,7 +10,6 @@
             $u -> nombre = $context['post']['nombre'];
             $u -> email = $context['post']['email'];
             $u -> password = $context['post']['password'];
-            
             try{
                 $u -> Guardar();                
                 $respuesta = [
@@ -59,18 +59,28 @@
             $u -> email = $context['post']['email'];
             $u -> password = $context['post']['password'];
             if(!empty($context["post"]["id"])){
-                $u -> Guardar();
-                $respuesta = [
-                    "Resultado" => "true",
-                    "Mensaje" => "Admnistrador Modificado Correctamente"
-                ];
-                echo json_encode($respuesta);
-            }else{
+                try{
+                    $u -> Guardar();
+                    $respuesta = [
+                        "Resultado" => "true",
+                        "Mensaje" => "Admnistrador Modificado Correctamente"
+                    ];
+                    echo json_encode($respuesta);
+                }
+                catch(mysqli_sql_exception $e){
+                    $error = $e->getMessage();
+                    $respuesta = [
+                        "Resultado" => "false",
+                        "Mensaje" => $error
+                    ];
+                    echo json_encode($respuesta);
+                }
+            }
+            else{
                 $respuesta = [
                     "Resultado" => "false",
-                    "Mensaje" => "Error en Modificacion"
+                    "Mensaje" => "Seleccione Administrador"
                 ];
-                echo json_encode($respuesta);
             }          
         }
 
@@ -80,9 +90,8 @@
             $resultado = [];
             foreach($administradores as $admin){
                 $t = [
-                    'idCliente' => $admin -> idCliente,
+                    'id' => $admin -> id,
                     'nombres' => $admin -> nombres,
-                    'apellidos' => $admin -> apellidos,
                     'email' => $admin -> email,
                 ];
                 array_push($resultado,$t);

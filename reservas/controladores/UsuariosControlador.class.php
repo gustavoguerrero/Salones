@@ -1,4 +1,5 @@
 <?php
+
     Header("Access-Control-Allow-Origin: *");
     require_once "../utils/autoload.php";
 
@@ -6,8 +7,7 @@
         public static function Alta($context){
             
             $u = new UsuariosModelo();
-            $u -> nombres = $context['post']['nombres'];
-            $u -> apellidos = $context['post']['apellidos'];
+            $u -> nombre = $context['post']['nombre'];
             $u -> email = $context['post']['email'];
             
             try{
@@ -31,7 +31,7 @@
         }
         
         public static function Eliminar($context){
-            $u = new UsuariosModelo($context["post"]["idUsuario"]);
+            $u = new UsuariosModelo($context["post"]["id"]);
             $u -> Eliminar();
             $respuesta = [
                 "Resultado" => "true",
@@ -41,18 +41,28 @@
         }        
 
         public static function Modificar($context){
-            $u = new UsuariosModelo($context["post"]["idUsuario"]);
-            $u -> idUsuario = $context['post']['idUsuario'];
-            $u -> nombres = $context['post']['nombres'];
-            $u -> apellidos = $context['post']['apellidos'];
+            $u = new UsuariosModelo($context["post"]["id"]);
+            $u -> id = $context['post']['id'];
+            $u -> nombre = $context['post']['nombre'];
             $u -> email = $context['post']['email'];
-            if(!empty($context["post"]["idUsuario"])){
-                $u -> Guardar();
-                $respuesta = [
-                    "Resultado" => "true",
-                    "Mensaje" => "Usuario Modificado Correctamente"
-                ];
-                echo json_encode($respuesta);
+            if(!empty($context["post"]["id"])){
+                try {
+                    $u -> Guardar();
+                    $respuesta = [
+                        "Resultado" => "true",
+                        "Mensaje" => "Usuario Modificado Correctamente"
+                    ];
+                    echo json_encode($respuesta);
+                }
+                catch (mysqli_sql_exception $e) {
+                    $error = $e->getMessage();
+                    $respuesta = [
+                        "Resultado" => "false",
+                        "Mensaje" => $error
+                    ];
+                    echo json_encode($respuesta);
+                }
+                
             }else{
                 $respuesta = [
                     "Resultado" => "false",
@@ -68,9 +78,8 @@
             $resultado = [];
             foreach($usuarios as $usuario){
                 $t = [
-                    'idUsuario' => $usuario -> idUsuario,
-                    'nombres' => $usuario -> nombres,
-                    'apellidos' => $usuario -> apellidos,
+                    'id' => $usuario -> id,
+                    'nombre' => $usuario -> nombre,
                     'email' => $usuario -> email,
                 ];
                 array_push($resultado,$t);
