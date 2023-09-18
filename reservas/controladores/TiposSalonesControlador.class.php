@@ -2,13 +2,11 @@
     Header("Access-Control-Allow-Origin: *");
     require_once "../utils/autoload.php";
 
-    class AdministradoresControlador{
+    class TiposSalonesControlador{
         public static function Alta($context){
             
-            $u = new AdministradoresModelo();
-            $u -> nombre = $context['post']['nombre'];
-            $u -> email = $context['post']['email'];
-            $u -> password = $context['post']['password'];
+            $u = new TiposSalonesModelo();
+            $u -> nombre = $context['post']['nombreSalon'];
             
             try{
                 $u -> Guardar();                
@@ -31,7 +29,7 @@
         }
         
         public static function Eliminar($context){
-            $u = new AdministradoresModelo($context["post"]["id"]);
+            $u = new TiposSalonesModelo($context["post"]["nombre"]);
             $u -> Eliminar();
             $respuesta = [
                 "Resultado" => "true",
@@ -41,18 +39,25 @@
         }        
 
         public static function Modificar($context){
-            $u = new AdministradoresModelo($context["post"]["id"]);
-            $u -> id = $context['post']['id'];
+            $u = new TiposSalonesModelo($context["post"]["id"]);
             $u -> nombre = $context['post']['nombre'];
-            $u -> email = $context['post']['email'];
-            $u -> password = $context['post']['password'];
-            if(!empty($context["post"]["id"])){
-                $u -> Guardar();
-                $respuesta = [
-                    "Resultado" => "true",
-                    "Mensaje" => "Admnistrador Modificado Correctamente"
-                ];
-                echo json_encode($respuesta);
+            if(!empty($context["post"]["nombreSalon"])){
+                try{
+                    $u -> Guardar();
+                    $respuesta = [
+                        "Resultado" => "true",
+                        "Mensaje" => "Admnistrador Modificado Correctamente"
+                    ];
+                    echo json_encode($respuesta);
+                }
+                catch(mysqli_sql_exception $e){
+                    $error = $e->getMessage();
+                    $respuesta = [
+                        "Resultado" => "false",
+                        "Mensaje" => $error
+                    ];
+                    echo json_encode($respuesta);
+                }
             }else{
                 $respuesta = [
                     "Resultado" => "false",
@@ -63,14 +68,14 @@
         }
 
         public static function Listar(){
-            $u = new AdministradoresModelo();
-            $administradores = $u -> ObtenerTodos();
+            $u = new SalonesModelo();
+            $salones = $u -> ObtenerTodos();
             $resultado = [];
-            foreach($administradores as $admin){
+            foreach($salones as $salon){
                 $t = [
-                    'id' => $admin -> id,
-                    'nombres' => $admin -> nombre,
-                    'email' => $admin -> email,
+                    'nombreSalon' => $salon -> nombreSalon,
+                    'capacidad' => $salon -> capacidad,
+                    'tipo' => $salon -> tipo,
                 ];
                 array_push($resultado,$t);
             }

@@ -2,7 +2,7 @@
 
     require_once "../utils/autoload.php";
 
-    class Tipos_SalonesModelo extends Modelo{
+    class TiposSalonesModelo extends Modelo{
         public $id;
         public $nombre;
         
@@ -55,7 +55,7 @@
             $filas = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC);
             $resultado = array();
             foreach($filas as $fila){
-                $p = new Tipos_SalonesModelo();
+                $p = new TiposSalonesModelo();
                 $p -> id = $fila['id'];
                 $p -> nombre = $fila['nombre'];
 

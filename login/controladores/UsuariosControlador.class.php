@@ -69,8 +69,7 @@
             foreach($usuarios as $usuario){
                 $t = [
                     'idUsuario' => $usuario -> idUsuario,
-                    'nombres' => $usuario -> nombres,
-                    'apellidos' => $usuario -> apellidos,
+                    'nombre' => $usuario -> nombre,,
                     'email' => $usuario -> email,
                 ];
                 array_push($resultado,$t);
