@@ -3,7 +3,6 @@ CREATE TABLE Usuarios (
   nombres VARCHAR(100) NOT NULL,
   apellidos VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
-  gotPassword BOOLEAN
 );
 
 CREATE TABLE gotPassword (

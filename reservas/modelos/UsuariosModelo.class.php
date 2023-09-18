@@ -4,7 +4,8 @@
 
     class UsuariosModelo extends Modelo{
         public $id;
-        public $nombre;
+        public $nombres;
+        public $apellidos;
         public $email;
 
         public function __construct($id=""){
@@ -21,8 +22,9 @@
         }
 
         private function insertar(){
-            $sql = "INSERT INTO Usuarios (nombre, email) 
-            VALUES ('" . $this -> nombre . "',
+            $sql = "INSERT INTO Usuarios (nombres, apellidos, email) 
+            VALUES ('" . $this -> nombres . "',
+                    '" . $this -> apellidos . "',
                     '" . $this -> email . "');"; 
             
             $this -> conexion -> query($sql);
@@ -30,7 +32,8 @@
 
         private function actualizar(){
             $sql = "UPDATE Usuarios SET
-            nombre = '" . $this -> nombre . "',
+            nombres = '" . $this -> nombres . "',
+            apellidos = '" . $this -> apellidos . "',
             email = '" . $this -> email . "',
             WHERE id = " . $this -> id . ";";
             $this -> conexion -> query($sql);   
@@ -43,7 +46,8 @@
             $fila = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC)[0];
 
             $this -> id = $fila['id'];
-            $this -> nombre = $fila['nombre'];
+            $this -> nombres = $fila['nombres'];
+            $this -> apellidos = $fila['apellidos'];
             $this -> email = $fila['email'];
         }
 
@@ -55,13 +59,14 @@
         }
 
         public function ObtenerTodos(){
-            $sql = "select * from Usuarios;";
+            $sql = "select * from Usuarios";
             $filas = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC);
             $resultado = array();
             foreach($filas as $fila){
                 $p = new UsuariosModelo();
                 $p -> id  = $fila['id'];
-                $p -> nombre = $fila['nombre'];
+                $p -> nombres = $fila['nombres'];
+                $p -> apellidos = $fila['apellidos'];
                 $p -> email = $fila['email'];
 
                 array_push($resultado,$p);
