@@ -4,7 +4,7 @@
 
     class TiposSalonesModelo extends Modelo{
         public $id;
-        public $nombre;
+        public $tipo;
         
         public function __construct($id=""){
             parent::__construct();
@@ -20,15 +20,15 @@
         }
 
         private function insertar(){
-            $sql = "INSERT INTO Tipos_Salones (nombre) 
-            VALUES ('" . $this -> nombre . "');"; 
+            $sql = "INSERT INTO Tipos_Salones (tipo) 
+            VALUES ('" . $this -> tipo . "');"; 
             
             $this -> conexion -> query($sql);
         }
 
         private function actualizar(){
             $sql = "UPDATE Tipos_Salones SET
-            nombre = '" . $this -> nombre . "'
+            tipo = '" . $this -> tipo . "'
             WHERE id = " . $this -> id . ";";
             $this -> conexion -> query($sql);   
         }
@@ -40,7 +40,7 @@
             $fila = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC)[0];
 
             $this -> id = $fila['id'];
-            $this -> nombre = $fila['nombre'];
+            $this -> tipo = $fila['tipo'];
         }
 
 
@@ -57,7 +57,7 @@
             foreach($filas as $fila){
                 $p = new TiposSalonesModelo();
                 $p -> id = $fila['id'];
-                $p -> nombre = $fila['nombre'];
+                $p -> tipo = $fila['tipo'];
 
                 array_push($resultado,$p);
             }

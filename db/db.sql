@@ -21,7 +21,10 @@ CREATE TABLE Administradores (
 
 CREATE TABLE Tipos_Salones (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nombre VARCHAR(255) NOT NULL
+  tipo ENUM('Actos', 'aulas', 
+    'aulasHibrid', 'seminario', 
+    'laboratorios', 't', 'labFisica', 
+    'cim', 'informatica')
 );
 
 CREATE TABLE Salones (
