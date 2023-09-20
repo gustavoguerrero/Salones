@@ -35,7 +35,7 @@
             $u -> Eliminar();
             $respuesta = [
                 "Resultado" => "true",
-                "Mensaje" => "Administrador eliminado Correctamente"
+                "Mensaje" => "Salón eliminado Correctamente"
             ];
             echo json_encode($respuesta);
         }        
@@ -49,7 +49,7 @@
                 $u -> Guardar();
                 $respuesta = [
                     "Resultado" => "true",
-                    "Mensaje" => "Admnistrador Modificado Correctamente"
+                    "Mensaje" => "Salón Modificado Correctamente"
                 ];
                 echo json_encode($respuesta);
             }else{

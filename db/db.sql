@@ -2,7 +2,7 @@ CREATE TABLE Usuarios (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nombres VARCHAR(100) NOT NULL,
   apellidos VARCHAR(100) NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE gotPassword (
@@ -19,21 +19,15 @@ CREATE TABLE Administradores (
   password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Tipos_Salones (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  tipo ENUM('Actos', 'aulas', 
-    'aulasHibrid', 'seminario', 
-    'laboratorios', 't', 'labFisica', 
-    'cim', 'informatica')
-);
-
 CREATE TABLE Salones (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(100) NOT NULL,
   capacidad INT NOT NULL,
   ubicacion VARCHAR(255),
-  tipo_salon_id INT,
-  FOREIGN KEY (tipo_salon_id) REFERENCES Tipos_Salones(id)
+  tipo ENUM('Actos', 'aulas', 
+    'aulasHibrid', 'seminario', 
+    'laboratorios', 't', 'labFisica', 
+    'cim', 'informatica')
 );
 
 CREATE TABLE Inventario (
