@@ -27,7 +27,7 @@ CREATE TABLE Salones (
   tipo ENUM('actos','aula',
     'aulaHibrida','seminario',
     'laboratorio','t','labFisica',
-    'cim','informatica'
+    'cin','informatica'
   )
 );
 
@@ -54,8 +54,35 @@ CREATE TABLE Eventos_Calendario (
 
 insert into Administradores(
   nombre, email, password) 
-  values('root', 'root@mail.com', 
-  '$2a$12$tVHIw5XRQKJHlAkRV2O77.8WkHBzdflIge4Y04rMCkgiFoHik4q1y');
+  values
+  ('admin1', 'admin1@mail.com', 
+  '$2a$12$tVHIw5XRQKJHlAkRV2O77.8WkHBzdflIge4Y04rMCkgiFoHik4q1y'),
+  ('admin2', 'admin2@mail.com', 
+  '$2a$12$tVHIw5XRQKJHlAkRV2O77.8WkHBzdflIge4Y04rMCkgiFoHik4q1y'),
+  ('admin3', 'admin3@mail.com', 
+  '$2a$12$tVHIw5XRQKJHlAkRV2O77.8WkHBzdflIge4Y04rMCkgiFoHik4q1y')
+  ;
+
+insert into Usuarios(
+  nombres, apellidos, email)
+  VALUES
+  ('nombre1', 'apellido1', 'user1@mail.com'),
+  ('nombre2', 'apellido2', 'user2@mail.com'), 
+  ('nombre3', 'apellido3', 'user3@mail.com'),
+  ('nombre4', 'apellido4', 'user4@mail.com');
+
+insert into Salones(
+  nombre, capacidad, ubicacion, tipo)
+  VALUES
+  ("101/103", 90, 'Piso 1', 'aula'),
+  ("201/203", 90, 'Piso 2', 'aulaHibrida'),
+  ("Sala CIN", 10, 'CIN', 'cin'),
+  ("Seminarios 1", 40, 'Piso 0', 'seminario'),
+  ("Seminarios 2", 40, 'Piso 0', 'seminario'),
+  ("306", 20, 'Piso 3', 'laboratorio'),
+  ("T04", 15, 'Piso 0', 't');
+
+
 
 "
 CREATE TABLE Materias (

@@ -17,6 +17,11 @@
     Routes::Add("/bajaSalon","post","SalonesControlador::Eliminar");
     Routes::Add("/modificarSalon","post","SalonesControlador::Modificar");
     Routes::Add("/listarSalon","get","SalonesControlador::Listar");
+    
+    Routes::Add("/altaEvento","post","EventosCalendarioControlador::Alta");
+    Routes::Add("/bajaEvento","post","EventosCalendarioControlador::Eliminar");
+    Routes::Add("/modificarEvento","post","EventosCalendarioControlador::Modificar");
+    Routes::Add("/listarEvento","get","EventosCalendarioControlador::Listar");
 
     Routes::Add("/altaElemento","post","ElementosControlador::Alta");
     Routes::Add("/bajaElemento","post","ElementosControlador::Eliminar");

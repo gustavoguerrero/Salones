@@ -35,7 +35,7 @@
                         '" . $this -> profesor_id . "',
                         '" . $this -> administrador_id . "'
                     );"; 
-            
+            var_dump($sql);
             $this -> conexion -> query($sql);
         }
 
