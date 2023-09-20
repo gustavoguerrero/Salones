@@ -91,7 +91,7 @@
             foreach($administradores as $admin){
                 $t = [
                     'id' => $admin -> id,
-                    'nombres' => $admin -> nombres,
+                    'nombres' => $admin -> nombre,
                     'email' => $admin -> email,
                 ];
                 array_push($resultado,$t);
