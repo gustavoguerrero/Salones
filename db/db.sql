@@ -24,10 +24,11 @@ CREATE TABLE Salones (
   nombre VARCHAR(100) NOT NULL,
   capacidad INT NOT NULL,
   ubicacion VARCHAR(255),
-  tipo ENUM('Actos', 'aulas', 
-    'aulasHibrid', 'seminario', 
-    'laboratorios', 't', 'labFisica', 
-    'cim', 'informatica')
+  tipo ENUM('actos','aula',
+    'aulaHibrida','seminario',
+    'laboratorio','t','labFisica',
+    'cim','informatica'
+  )
 );
 
 CREATE TABLE Inventario (
