@@ -3,27 +3,30 @@
     require_once "../utils/autoload.php";
 
     class SalonesModelo extends Modelo{
-        public $nombreSalon;
+        public $id;
+        public $nombre;
         public $capacidad;
+        public $ubicacion;
         public $tipo;
         
-        public function __construct($nombreSalon=""){
+        public function __construct($id=""){
             parent::__construct();
-            if($nombreSalon != ""){
-                $this -> nombreSalon = $nombreSalon;
+            if($id != ""){
+                $this -> id = $id;
                 $this -> Obtener();
             }
         }
 
         public function Guardar(){
-            if($this -> nombreSalon == NULL) $this -> insertar();
+            if($this -> id == NULL) $this -> insertar();
             else $this -> actualizar();
         }
 
         private function insertar(){
-            $sql = "INSERT INTO Salones (nombreSalon, capacidad, tipo) 
-            VALUES ('" . $this -> nombreSalon . "',
+            $sql = "INSERT INTO Salones (nombre, capacidad, ubicacion, tipo) 
+            VALUES ('" . $this -> nombre . "',
                     '" . $this -> capacidad . "',
+                    '" . $this -> ubicacion . "',
                     '" . $this -> tipo . "');"; 
             
             $this -> conexion -> query($sql);
@@ -31,27 +34,31 @@
 
         private function actualizar(){
             $sql = "UPDATE Salones SET
+            nombre = '" . $this -> nombre . "',
             capacidad = '" . $this -> capacidad . "',
+            ubicacion = '" . $this -> ubicacion . "',
             tipo = '" . $this -> tipo . "'
-            WHERE nombreSalon = " . $this -> nombreSalon . ";";
+            WHERE id = " . $this -> id . ";";
             $this -> conexion -> query($sql);   
         }
 
         public function Obtener(){
             $sql = "SELECT * FROM Salones WHERE
-                nombreSalon = " . $this -> nombreSalon . ";";
+                id = " . $this -> id . ";";
 
             $fila = $this -> conexion -> query($sql) -> fetch_all(MYSQLI_ASSOC)[0];
 
-            $this -> nombreSalon = $fila['nombreSalon'];
+            $this -> id = $fila['id'];
+            $this -> nombre = $fila['nombre'];
             $this -> capacidad = $fila['capacidad'];
+            $this -> ubicacion = $fila['ubicacion'];
             $this -> tipo = $fila['tipo'];
         }
 
 
         public function Eliminar(){
             $sql = "DELETE FROM Salones 
-                WHERE nombreSalon = " . $this -> nombreSalon . ";";
+                WHERE id = " . $this -> id . ";";
             $this -> conexion -> query($sql);
         }
 
@@ -61,8 +68,10 @@
             $resultado = array();
             foreach($filas as $fila){
                 $p = new SalonesModelo();
-                $p -> nombreSalon  = $fila['nombreSalon'];
+                $p -> id  = $fila['id'];
+                $p -> nombre  = $fila['nombre'];
                 $p -> capacidad = $fila['capacidad'];
+                $p -> ubicacion = $fila['ubicacion'];
                 $p -> tipo = $fila['tipo'];
 
                 array_push($resultado,$p);

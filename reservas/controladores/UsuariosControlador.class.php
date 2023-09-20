@@ -7,7 +7,7 @@
         public static function Alta($context){
             
             $u = new UsuariosModelo();
-            $u -> nombre = $context['post']['nombre'];
+            $u -> nombres = $context['post']['nombres'];
             $u -> email = $context['post']['email'];
             
             try{
@@ -43,7 +43,7 @@
         public static function Modificar($context){
             $u = new UsuariosModelo($context["post"]["id"]);
             $u -> id = $context['post']['id'];
-            $u -> nombre = $context['post']['nombre'];
+            $u -> nombres = $context['post']['nombres'];
             $u -> email = $context['post']['email'];
             if(!empty($context["post"]["id"])){
                 try {
@@ -79,7 +79,7 @@
             foreach($usuarios as $usuario){
                 $t = [
                     'id' => $usuario -> id,
-                    'nombre' => $usuario -> nombre,
+                    'nombres' => $usuario -> nombres,
                     'email' => $usuario -> email,
                 ];
                 array_push($resultado,$t);

@@ -6,8 +6,10 @@
         public static function Alta($context){
             
             $u = new SalonesModelo();
-            $u -> nombreSalon = $context['post']['nombreSalon'];
+            $u -> id = $context['post']['id'];
+            $u -> nombre = $context['post']['nombre'];
             $u -> capacidad = $context['post']['capacidad'];
+            $u -> ubicacion = $context['post']['ubicacion'];
             $u -> tipo = $context['post']['tipo'];
             
             try{
@@ -31,7 +33,7 @@
         }
         
         public static function Eliminar($context){
-            $u = new SalonesModelo($context["post"]["nombreSalon"]);
+            $u = new SalonesModelo($context["post"]["id"]);
             $u -> Eliminar();
             $respuesta = [
                 "Resultado" => "true",
@@ -41,11 +43,12 @@
         }        
 
         public static function Modificar($context){
-            $u = new SalonesModelo($context["post"]["nombreSalon"]);
-            $u -> nombreSalon = $context['post']['nombreSalon'];
+            $u = new SalonesModelo($context["post"]["id"]);
+            $u -> nombre = $context['post']['nombre'];
             $u -> capacidad = $context['post']['capacidad'];
+            $u -> ubicacion = $context['post']['ubicacion'];
             $u -> tipo = $context['post']['tipo'];
-            if(!empty($context["post"]["nombreSalon"])){
+            if(!empty($context["post"]["nombre"])){
                 $u -> Guardar();
                 $respuesta = [
                     "Resultado" => "true",
@@ -67,9 +70,11 @@
             $resultado = [];
             foreach($salones as $salon){
                 $t = [
-                    'nombreSalon' => $salon -> nombreSalon,
+                    'id' => $salon -> id,
+                    'nombre' => $salon -> nombre,
                     'capacidad' => $salon -> capacidad,
-                    'tipo' => $salon -> tipo,
+                    'ubicacion' => $salon -> ubicacion,
+                    'tipo' => $salon -> tipo
                 ];
                 array_push($resultado,$t);
             }
